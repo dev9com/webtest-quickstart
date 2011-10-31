@@ -1,0 +1,54 @@
+
+<configuration>
+
+	<!-- Defines the format for log entries. -->
+	<property name="logEntryFormat"
+		value="%-12date{HH:mm:ss.SSS} %-5level %-10logger{5}| %msg%n" />
+
+	<!-- Appender specifying the log file that catches everything else. This 
+		is typically used to log raw, non-contextual, stack traces with. Useful in 
+		troubleshooting -->
+	<appender name="uncategorizedErrors" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${logEntryFormat}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Appender specifying the main log for this application. Catches com.dynacrongroup 
+		and child events -->
+	<appender name="testFileAppender" class="ch.qos.logback.core.FileAppender">
+		<file>target/test.log</file>
+		<encoder>
+			<pattern>${logEntryFormat}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Grabs the perf data and logs it to a CSV file -->
+	<appender name="TIMINGFILE" class="ch.qos.logback.core.FileAppender">
+		<file>target/selenium-timings.csv</file>
+		<append>true</append>
+		<!-- Defines the format of the logged entry -->
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Grabs the data from the timer and pipes it to a CSV file -->
+	<logger name="com.dynacrongroup.selenium.Timing" level="TRACE"
+		additivity="false">
+		<appender-ref ref="TIMINGFILE" />
+	</logger>
+
+	<!-- Logger that catches events from the Spring framework -->
+	<logger name="org.springframework" level="INFO" additivity="false">
+		<appender-ref ref="testFileAppender" />
+	</logger>
+
+	<logger name="com.dynacrongroup.selenium" level="INFO" />
+
+	<logger name="com.dynacrongroup.sample" level="DEBUG" />
+
+	<root level="WARN">
+		<appender-ref ref="uncategorizedErrors" />
+	</root>
+</configuration>
