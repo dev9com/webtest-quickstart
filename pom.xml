@@ -193,14 +193,14 @@
 						command to run the system interactively -->
 					<wait>true</wait>
 					<container>
-						<containerId>tomcat6x</containerId>
+						<containerId>tomcat7x</containerId>
 						<!-- Copies Tomcat from Artifactory -->
 						<zipUrlInstaller>
-							<url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29.zip</url>
+							<url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip</url>
 							<!-- Note that by default Tomcat is placed inside your target directory. 
 								This ensures a clean build. You may want to change this value when you are 
 								doing dev to something local. -->
-							<installDir>${project.build.directory}/cargo-tomcat</installDir>
+							<extractDir>${project.build.directory}/cargo-tomcat</extractDir>
 						</zipUrlInstaller>
 						<!-- We are routing the standard output as emitted from Tomcat into 
 							this file. This keeps the Maven log clean and also makes the Tomcat log more 
@@ -213,9 +213,9 @@
 						<type>standalone</type>
 						<deployables>
 							<deployable>
+							    <pingURL>http://localhost:8080/webtest-quickstart/</pingURL>
 								<properties>
 									<context>webtest-quickstart</context>
-									<pingURL>http://localhost:8080/webtest-quickstart/</pingURL>
 								</properties>
 							</deployable>
 							<!-- Cargo automatically deploys the project artifact. In this case, 
