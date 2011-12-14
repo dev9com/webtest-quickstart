@@ -85,6 +85,11 @@
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit-dep</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<pluginManagement>
