@@ -9,3 +9,15 @@
 #Maven files
 target/**/*
 target/*
+
+webtest-sample.iws
+
+webtest-sample.ipr
+
+webtest-sample.iml
+
+.gitignore
+
+.gitignore
+
+src/test/java/com/dynacrongroup/sample/ATest.java
