@@ -1,0 +1,86 @@
+ ------
+ webtest-quickstart
+ ------
+ Will Iverson and David Drake
+ ------
+ 1/6/2012
+ ------
+
+Overview
+
+ This project is a sample combined webapp/webtest project using the
+ parallel-webtest library for managing parallelization of selenium tests
+ that run either locally or in the cloud, through Sauce Labs.
+ This project is a test library for use with your Maven projects to make it
+ easier to run Selenium projects using SauceLabs.  In particular, you can
+ write your tests once and have them automatically run in parallel on
+ supported browser/OS combinations.
+
+ There are two main usage scenarios for this library:
+
+ * During your test execution (<<<mvn test>>>)
+
+ * During your integration-test execution (<<<mvn integration-test>>>)
+
+Test Phase
+
+ The test phase is part of the default Maven lifecycle.  Tests that run during
+ this phase typically end in Test (as in, SeleniumSimpleTest.java) for the
+ Surefire plugin.  This is built in to Maven, so a very simple POM is needed.
+ This is fine if you are writing tests that are intended to target a known,
+ well-defined server running somewhere other than the build agent or your
+ local server.  The samples in this project target www.dynacrongroup.com.
+
+ At this point in the process (assuming your final goal is to build
+ a WAR), the WAR does not actually exist.  For that, you''ll have to wait for
+ the integration-test phase.
+
+Integration-test Phase
+
+ The integration-test phase is also part of the default Maven lifecycle.  Tests
+ that run during this phase typically end in IT (as in, SampleIT.java), using
+ the default naming convention for the failsafe plugin.  These tests are
+ typically used with a locally deployed war file, which can be deployed into
+ a local, transient container using maven plugins, like cargo.  This war file
+ may be built in the same pom used for the tests, as shown in the examples in
+ this project, or could be pulled in as a dependency.
+
+Configuration
+
+ For details on how parallel-webtest is configured, see documentation for
+ parallel-webtest.  In particular, make certain that you have an envronment
+ variable named "WEBTEST_HOSTNAME" that refers to your full computer name.
+
+Samples
+
+ The following sample tests are present in this project:
+
+ * <<<com.dynacrongroup.sample.remote.SeleniumSimpleTest>>>
+
+    This test is a simple example of using the parallel-webtest library to run
+    a set of selenium tests.  It it designed to test against a remote, always
+    available server, so this test could be used as a cut down model for tests
+    that run against a Dev, QA, Staging, or Prod server.
+
+ * <<<com.dynacrongroup.sample.remote.SeleniumPageObjectTest>>>
+
+    This test is a more complicated example showing the advantages of using a
+    PageObject to model the site under test, instead of writing all tests
+    using procedural code.  It is also designed to run against a remote, always
+    available web server.
+
+ * <<<com.dynacrongroup.sample.local.SeleniumIT>>>
+
+    This test is a simple example of using the parallel-webtest library to run
+    a set of selenium tests.  It it designed to test against a locally
+    deployed war file, from the failsafe plugin.  The pom deploys the war
+    file using the cargo plugin.  These kinds of selenium tests are well-
+    suited to tests that run in a continuous integration environment when
+    verifying builds.
+
+ * <<<com.dynacrongroup.sample.local.HtmlUnitIT>>>
+
+    This test demonstrates how htmlunit tests can be included alongside
+    selenium tests.  This particular test is desgined to run against a
+    locally deployed war file, but it could be modified to run against
+    a remote server.

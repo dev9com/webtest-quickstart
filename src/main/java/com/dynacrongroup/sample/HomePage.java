@@ -1,5 +1,7 @@
 package com.dynacrongroup.sample;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,14 +24,11 @@ public class HomePage extends PageObject {
 
     private final static Logger LOG = LoggerFactory.getLogger(HomePage.class);
 
-    /* The page factory tries to initialize WebElements by matching their names to an id.  "search-input"
-        isn't a nice java variable name, so the variable is given a custom name and the element is located
-        using the FindBy annotation instead. */
-    @FindBy(id="search-text")
-    private WebElement queryInput;
-
-    @FindBy(id="search-button")
-    private WebElement goButton;
+    /* The page factory tries to initialize WebElements by matching their names to an id.  "tagcloud"
+        isn't an id, so the "FindBy" annotation is used to search for it by className */
+    
+    @FindBy(className = "tagcloud")
+    private WebElement tagCloud;
 
     /**
      * This constructor is necessary to provide a WebDriver for the services the page uses.  It's also
@@ -54,25 +53,43 @@ public class HomePage extends PageObject {
     }
 
     /**
-     * Executes a search from the home page.  The search function is modeled as a service of the
-     * HomePage object.
-     *
-     * @param query
-     *          The query to enter in the "search-input" field.
-     * @return
-     *          A new PageObject representing the browser page reached after the "GO" button is pressed.
-     *              To expand on this set of tests, one might create a new "SearchResultsPage" object
-     *              that modeled this new page, but a generic PageObject will suffice for the purposes
-     *              of this example.
+     * Selects an arbitrary tag from the home page's tag cloud.
+     * 
+     * @param tag   The name of the tag to select in the tag cloud
+     * @return      A new page loaded by clicking the tag
      */
-    public PageObject search(String query) {
-        LOG.debug("Searching for [{}]", query);
+    public TagArchivePage selectTag(String tag) {
+        LOG.trace("Attempting to select tag with name [{}]", tag);
+        
+        TagArchivePage newPage = null;
 
-        queryInput.clear();
-        queryInput.sendKeys(query);
-        goButton.click();
+        if (isTagPresent(tag)) {
+            WebElement tagLink = tagCloud.findElement( By.linkText(tag) );
+            tagLink.click();
+            newPage = PageFactory.initElements(driver, TagArchivePage.class);
+        }
+        else {
+            LOG.error("tag [{}] not found", tag);
+        }
 
-        return PageFactory.initElements(driver, PageObject.class);
+        return newPage;
     }
 
+    /**
+     * Verifies that a tag is present.
+     * @param tag
+     * @return
+     */
+    public Boolean isTagPresent(String tag) {
+        LOG.trace("Attempting to find tag with name [{}]", tag);
+    
+        Boolean success = Boolean.TRUE;
+        try {
+            tagCloud.findElement( By.linkText(tag) );
+        }
+        catch (NoSuchElementException e) {
+            success = Boolean.FALSE;
+        }
+        return success;
+    }
 }

@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project name="Maven" xmlns="http://maven.apache.org/DECORATION/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
     <publishDate position="right"/>
     <version position="right"/>
     <body>
         <links>
             <item name="Maven" href="http://maven.apache.org/"/>
+            <item name="Dynacron Group" href="http://www.dynacrongroup.com/"/>
         </links>
         <menu ref="reports"/>
     </body>

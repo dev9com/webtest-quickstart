@@ -21,3 +21,5 @@ webtest-sample.iml
 .gitignore
 
 src/test/java/com/dynacrongroup/sample/ATest.java
+
+webtest-quickstart.iml

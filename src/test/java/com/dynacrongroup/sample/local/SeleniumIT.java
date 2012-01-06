@@ -2,37 +2,30 @@
  * This is a canonical example of a Selenium web test executing against a local
  * build.
  */
-package com.dynacrongroup.sample;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+package com.dynacrongroup.sample.local;
 
 import com.dynacrongroup.webtest.ParallelRunner;
 import com.dynacrongroup.webtest.WebDriverBase;
 import com.dynacrongroup.webtest.util.Path;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 // This RunWith annotation provides the hook into the Selenium parallel
 // execution (the stuff that runs multiple Selenium browsers in parallel
 // with SauceLabs
 @RunWith(ParallelRunner.class)
-public class SampleJUnitSeleniumIT extends WebDriverBase {
+public class SeleniumIT extends WebDriverBase {
 
 	/** The Path object picks up standard naming rules for finding the target. */
 	Path p = new Path();
 
 	/** This constructor is required to support the parallel test execution. */
-	public SampleJUnitSeleniumIT(String browser, String browserVersion) {
-		super(browser, browserVersion);
-	}
-
-	@Before
-	public void setPath() {
-		p.setContext(WebTestConstants.CONTEXT);
-		getLogger().info(p.getExpectedSauceConnectString());
+	public SeleniumIT( String browser, String browserVersion ) {
+		super( browser, browserVersion );
 	}
 
 	/**
