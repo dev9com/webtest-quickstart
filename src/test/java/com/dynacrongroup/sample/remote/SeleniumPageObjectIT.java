@@ -35,6 +35,7 @@ public class SeleniumPageObjectIT extends WebDriverBase {
 
     public SeleniumPageObjectIT(String browser, String browserVersion) {
         super(browser, browserVersion);
+        p.setContext("");
     }
 
     @Before

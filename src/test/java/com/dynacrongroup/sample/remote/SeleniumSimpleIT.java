@@ -28,6 +28,7 @@ public class SeleniumSimpleIT extends WebDriverBase {
 
     public SeleniumSimpleIT(String browser, String browserVersion) {
         super( browser, browserVersion );
+        p.setContext("");
     }
 
     @Test
