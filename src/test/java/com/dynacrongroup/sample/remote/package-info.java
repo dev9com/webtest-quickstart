@@ -3,9 +3,9 @@
  *  These tests have the following features:
  *
  *  - Tests require that the application be deployed independently before running.  This is an external dependency.
- *  - Tests have the suffix "Test" so that they are picked up by Surefire in the test phase
+ *  - Tests could have the suffix "Test" so that they are picked up by Surefire in the test phase (but currently
+ *      use *IT so that all tests are aggregated.)
  *  - Tests are directed at a remote server (www.dynacrongroup.com, in the samples shown)
- *  - Tests are run from the command line using the "test" phase - "mvn clean test", for example.
  *
  */
 package com.dynacrongroup.sample.remote;

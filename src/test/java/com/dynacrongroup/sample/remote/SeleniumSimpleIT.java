@@ -19,14 +19,14 @@ import static org.junit.Assert.assertTrue;
  * even if you haven't set up sauce_connect.
  */
 @RunWith( ParallelRunner.class )
-public class SeleniumSimpleTest extends WebDriverBase {
+public class SeleniumSimpleIT extends WebDriverBase {
 
     private final static Logger log = LoggerFactory
-                                              .getLogger( SeleniumSimpleTest.class );
+                                              .getLogger( SeleniumSimpleIT.class );
 
     Path p = new Path( "www.google.com", 80 );
 
-    public SeleniumSimpleTest( String browser, String browserVersion ) {
+    public SeleniumSimpleIT(String browser, String browserVersion) {
         super( browser, browserVersion );
     }
 

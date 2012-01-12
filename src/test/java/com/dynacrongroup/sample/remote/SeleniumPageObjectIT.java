@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 /**
- * This test builds off of the same structure used in SeleniumSimpleTest, but introduces the
+ * This test builds off of the same structure used in SeleniumSimpleIT, but introduces the
  * use of page objects to model the web pages under test.
  * <p/>
  * Page objects can be used to neatly separate the model of the web site from tests that use the
@@ -29,11 +29,11 @@ import static org.junit.Assume.assumeTrue;
  * test maintenance is much lighter, and less code ends up copy/pasted between tests.
  */
 @RunWith(ParallelRunner.class)
-public class SeleniumPageObjectTest extends WebDriverBase {
+public class SeleniumPageObjectIT extends WebDriverBase {
 
     Path p = new Path("www.dynacrongroup.com", 80);
 
-    public SeleniumPageObjectTest(String browser, String browserVersion) {
+    public SeleniumPageObjectIT(String browser, String browserVersion) {
         super(browser, browserVersion);
     }
 

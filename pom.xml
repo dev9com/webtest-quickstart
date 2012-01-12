@@ -25,7 +25,7 @@
         <junit.version>4.10</junit.version>
 		<logback.version>1.0.0</logback.version>
         <parallel-webtest.version>1.0.14</parallel-webtest.version>
-        <selenium.version>2.16.0</selenium.version>
+        <selenium.version>2.16.1</selenium.version>
 
 		<!-- These properties are used to control running multiple tests in parallel. 
 			Set parallelrun to "classes" to run in parallel, or leave empty to run normally 
