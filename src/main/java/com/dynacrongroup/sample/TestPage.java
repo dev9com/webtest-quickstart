@@ -93,7 +93,7 @@ public class TestPage extends PageObject {
     public void closeAlert() {
         if (isAlertPresent()) {
             Alert alert = driver.switchTo().alert();
-            alert.accept();
+            alert.dismiss();
         }
     }
 
@@ -103,12 +103,14 @@ public class TestPage extends PageObject {
      * @return  Returns true if the alert box is present.
      */
     public Boolean isAlertPresent() {
-        Boolean present = true;
+        Boolean present;
         try {
-            driver.switchTo().alert().getText();
+            Alert alert = driver.switchTo().alert();
+            alert.getText();
+            present = Boolean.TRUE;
         } catch (NoAlertPresentException e) {
-            present = false;
-        }
+            present = Boolean.FALSE;
+        } 
         return present;
     }
 

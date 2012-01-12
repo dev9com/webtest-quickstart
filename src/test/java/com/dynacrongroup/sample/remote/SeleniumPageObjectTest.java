@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 /**
  * This test builds off of the same structure used in SeleniumSimpleTest, but introduces the
@@ -30,7 +31,6 @@ import static org.junit.Assert.fail;
 @RunWith(ParallelRunner.class)
 public class SeleniumPageObjectTest extends WebDriverBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SeleniumPageObjectTest.class);
     Path p = new Path("www.dynacrongroup.com", 80);
 
     public SeleniumPageObjectTest(String browser, String browserVersion) {
@@ -39,6 +39,8 @@ public class SeleniumPageObjectTest extends WebDriverBase {
 
     @Before
     public void preparePage() {
+        // These tests require a level of javascript support not provided with htmlunit
+        assumeTrue(! this.getTargetWebBrowser().isHtmlUnit());
         driver.get(p._("/webtest.html"));
     }
 
@@ -47,7 +49,7 @@ public class SeleniumPageObjectTest extends WebDriverBase {
      */
     @Test
     public void pageObjectButtonTextTest() {
-        LOG.info("Starting test: {}", name.getMethodName());
+        this.getLogger().info("Starting test: {}", name.getMethodName());
 
         TestPage testPage = PageFactory.initElements(driver, TestPage.class);
         try {
@@ -66,7 +68,7 @@ public class SeleniumPageObjectTest extends WebDriverBase {
      */
     @Test
     public void proceduralButtonTextTest() {
-        LOG.info("Starting test: {}", name.getMethodName());
+        this.getLogger().info("Starting test: {}", name.getMethodName());
 
         WebElement button = driver.findElement(By.id("fancy"));
         try {
