@@ -3,7 +3,7 @@ in JUnit.  It includes samples for running tests locally and remotely, and sampl
 using different browser types and combinations.
 
 A more complete introduction is included in the javadocs, here:
-http://repository-dynacrongroup.forge.cloudbees.com/release/sites/webtest-quickstart/
+http://repository-dynacrongroup.forge.cloudbees.com/release/sites/webtest-quickstart/index.html
 
 If you'd prefer to use a maven archetype to create a webtest-quickstart project from scratch, check out
 http://github.com/dynacron-group/webtest-quickstart-archetype.
