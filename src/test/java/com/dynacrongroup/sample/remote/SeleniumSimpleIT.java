@@ -33,14 +33,14 @@ public class SeleniumSimpleIT extends WebDriverBase {
 
     @Test
     public void firstTest() {
-        log.info( "the browser is: " + this.getTargetWebBrowser().browser );
+        log.info( "the browser is: " + this.getTargetWebBrowser().getBrowser() );
         driver.get( p._( "/" ) );
         assertTrue( driver.getPageSource().contains( "Google" ) );
     }
 
     @Test
     public void secondTest() {
-        log.info( "this version is: " + this.getTargetWebBrowser().version );
+        log.info( "this version is: " + this.getTargetWebBrowser().getVersion() );
 
         driver.get( p._( "/" ) );
         assertTrue( driver.getPageSource().contains( "Search" ) );

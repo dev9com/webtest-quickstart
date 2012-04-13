@@ -2,9 +2,9 @@ package com.dynacrongroup.sample;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.LoggerFactory;
-
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * PageObject is a generate page from any given site.  It is designed to support the page object
@@ -22,6 +22,10 @@ public class PageObject {
 
     public PageObject(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public static PageObject getPage(WebDriver driver) {
+        return PageFactory.initElements(driver, PageObject.class);
     }
 
     public String getTitle() {
