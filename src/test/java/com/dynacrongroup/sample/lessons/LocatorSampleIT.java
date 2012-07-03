@@ -62,7 +62,7 @@ public class LocatorSampleIT {
         for (By by : navLocators) {
             WebElement navContainer = driver.findElement(by);
             String text = navContainer.getText();
-            LOG.info(text);
+            LOG.info("Found: {} - {}",by.toString(), text);
             assertThat( text, containsString( "Products" ) );
         }
     }
