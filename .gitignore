@@ -25,3 +25,5 @@ src/test/java/com/dynacrongroup/sample/ATest.java
 webtest-quickstart.iml
 
 atlassian-ide-plugin.xml
+
+chromedriver.log
