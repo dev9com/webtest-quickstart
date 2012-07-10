@@ -2,6 +2,7 @@ package com.dynacrongroup.sample.lessons;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 /**
@@ -48,6 +50,8 @@ public class WindowManagementIT {
         driver.findElement( By.linkText( "Regular Link" ) ).click();
         pause( DELAY );
         assertThat( driver.getTitle(), equalToIgnoringCase( "This window is new!" ) );
+        driver.navigate().back();
+        assertThat( driver.getTitle(), containsString("Hi"));
     }
 
     @Test
@@ -66,6 +70,25 @@ public class WindowManagementIT {
         }
     }
 
+    @Ignore
+    @Test
+    public void slowPopupLink() {
+        driver.findElement( By.id("btnSlowNewNamelessWindow") ).click();
+
+        try {
+            LOG.info("Switching to popup...");
+            switchWindows();
+            pause( DELAY );
+            assertThat( driver.getTitle(), equalToIgnoringCase( "This window is new!" ) );
+        }
+        finally {
+            LOG.info("Switching back...");
+            driver.close();
+            switchWindows();
+            pause( DELAY );
+        }
+    }
+
 
 
     private void switchWindows() {
@@ -76,13 +99,18 @@ public class WindowManagementIT {
         catch (NoSuchWindowException e) {
             LOG.info("No current window.  I probably just closed it.");
         }
+        
         Set<String> allHandles = driver.getWindowHandles();
+        LOG.info("There are currently {} windows", allHandles.size());
+        
         for ( String handle : allHandles ) {
             if ( !handle.equals( currentHandle ) ) {
+                LOG.info("Switching to a new window!");
                 driver.switchTo().window( handle );
                 break;
             }
         }
+
     }
 
     private static final void pause( int millis ) {

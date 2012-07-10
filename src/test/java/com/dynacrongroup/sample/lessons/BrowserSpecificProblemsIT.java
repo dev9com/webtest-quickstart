@@ -1,6 +1,7 @@
 package com.dynacrongroup.sample.lessons;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Platform;
@@ -41,7 +42,7 @@ public class BrowserSpecificProblemsIT {
     public static void setupDriver(DesiredCapabilities capabilities) throws MalformedURLException {
         capabilities.setCapability( "version", "8" );
         capabilities.setCapability( "platform", Platform.XP );
-        capabilities.setCapability( "name", "A real test in a real lab" );
+        capabilities.setCapability( "name", capabilities.getBrowserName() + " resize test" );
 
         driver = new RemoteWebDriver(new URL("http://" + sauceUser + ":" + sauceKey + "@ondemand.saucelabs.com:80/wd/hub"),
                                      capabilities);
@@ -55,6 +56,7 @@ public class BrowserSpecificProblemsIT {
     }
 
     @Test
+    @Ignore
     public void ieResizing() throws MalformedURLException {
         setupDriver( DesiredCapabilities.internetExplorer() );
         resizeTest();
@@ -67,6 +69,7 @@ public class BrowserSpecificProblemsIT {
 
         Dimension newDimension = new Dimension(200,200);
         driver.manage().window().setSize(newDimension);
+        //((JavascriptExecutor)driver).executeScript("window.resize(...)");
 
         Dimension resultDimension = driver.manage().window().getSize();
         LOG.info( "New dimensions: {}", driver.manage().window().getSize() );
