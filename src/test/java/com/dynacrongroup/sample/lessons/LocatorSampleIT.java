@@ -65,5 +65,18 @@ public class LocatorSampleIT {
             LOG.info("Found: {} - {}",by.toString(), text);
             assertThat( text, containsString( "Products" ) );
         }
+
     }
+    
+    @Test
+    public void webElementExample() {
+        driver.get( "http://www.saucelabs.com" );
+        
+        WebElement link = driver.findElement(By.linkText("Pricing"));
+        
+        link.click();
+        assertThat(driver.getTitle(), containsString("Pricing"));
+
+    }
+    
 }

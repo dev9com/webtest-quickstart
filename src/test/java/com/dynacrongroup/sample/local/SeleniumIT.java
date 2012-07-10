@@ -7,7 +7,6 @@ package com.dynacrongroup.sample.local;
 import com.dynacrongroup.webtest.ParallelRunner;
 import com.dynacrongroup.webtest.WebDriverBase;
 import com.dynacrongroup.webtest.util.Path;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
