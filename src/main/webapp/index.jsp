@@ -15,5 +15,6 @@
         <input type="button" id="btnSlowNewNamelessWindow"
             onclick="setTimeout(function() {window.open('newWindow.html','slowWindow');},1250);"
             value="Slowly Open Window" /><br />
+        <input type="button" id="aSlowElement" onclick="setTimeout(function(){var p = document.createElement('p');p.textContent = 'New stuff';p.id='newStuff';document.body.appendChild(p);},1250)" value="Slowly add element" />
     </body>
 </html>

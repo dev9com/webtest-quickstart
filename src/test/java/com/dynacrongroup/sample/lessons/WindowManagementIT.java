@@ -2,12 +2,13 @@ package com.dynacrongroup.sample.lessons;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,14 +70,23 @@ public class WindowManagementIT {
             pause( DELAY );
         }
     }
+    
+    @Test
+    public void simulateAjax() {
+        driver.findElement( By.id("aSlowElement") ).click();
+        assertThat(driver.findElement(By.id("newStuff")).getText(),
+                   equalToIgnoringCase("new stuff"));
+        
+    }
 
-    @Ignore
     @Test
     public void slowPopupLink() {
         driver.findElement( By.id("btnSlowNewNamelessWindow") ).click();
 
         try {
             LOG.info("Switching to popup...");
+
+            waitForSecondWindow();
             switchWindows();
             pause( DELAY );
             assertThat( driver.getTitle(), equalToIgnoringCase( "This window is new!" ) );
@@ -89,6 +99,14 @@ public class WindowManagementIT {
         }
     }
 
+    private Boolean waitForSecondWindow() {
+        return (new WebDriverWait(driver, 10))
+                      .until(new ExpectedCondition<Boolean>(){
+                          @Override
+                          public Boolean apply(WebDriver d) {
+                              return d.getWindowHandles().size() > 1;
+                          }});
+    }
 
 
     private void switchWindows() {
