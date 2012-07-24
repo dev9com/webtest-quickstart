@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +16,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 /**
@@ -24,7 +25,7 @@ import static org.hamcrest.Matchers.equalToIgnoringCase;
  * Time: 9:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class WindowManagementIT {
+public class WaitingIT {
 
     private static final Logger LOG = LoggerFactory.getLogger( LocatorSampleIT.class );
     private static final int DELAY = 3000;
@@ -43,30 +44,42 @@ public class WindowManagementIT {
     public static void killDriver() {
         driver.quit();
     }
-
+    
     @Test
-    public void normalLink() {
-        driver.findElement( By.linkText( "Regular Link" ) ).click();
-        pause( DELAY );
-        assertThat( driver.getTitle(), equalToIgnoringCase( "This window is new!" ) );
-        driver.navigate().back();
-        assertThat( driver.getTitle(), containsString("Hi"));
+    public void simulateAjax() {
+        driver.findElement( By.id("aSlowElement") ).click();
+        assertThat(driver.findElement(By.id("newStuff")).getText(),
+                   equalToIgnoringCase("new stuff"));
+        
     }
 
     @Test
-    public void popupLink() {
-        driver.findElement( By.linkText( "New Window Link" ) ).click();
+    public void slowPopupLink() {
+        driver.findElement( By.id("btnSlowNewNamelessWindow") ).click();
 
         try {
+            LOG.info("Switching to popup...");
+
+            waitForSecondWindow();
             switchWindows();
             pause( DELAY );
             assertThat( driver.getTitle(), equalToIgnoringCase( "This window is new!" ) );
         }
         finally {
-            driver.close();  //Close the popup...
-            switchWindows(); //switch back.
+            LOG.info("Switching back...");
+            driver.close();
+            switchWindows();
             pause( DELAY );
         }
+    }
+
+    private Boolean waitForSecondWindow() {
+        return (new WebDriverWait(driver, 10))
+                      .until(new ExpectedCondition<Boolean>(){
+                          @Override
+                          public Boolean apply(WebDriver d) {
+                              return d.getWindowHandles().size() > 1;
+                          }});
     }
 
 
