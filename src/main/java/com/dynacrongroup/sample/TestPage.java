@@ -1,6 +1,9 @@
 package com.dynacrongroup.sample;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -8,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 /**
  * This is an example of an incomplete page object modeling the Dynacron home page.  It only exercises
@@ -62,6 +63,11 @@ public class TestPage extends PageObject {
      *  Services defined for this page.  Note that none of these includes an assertion; these are present
      *  in the test code.
      *-----------------------------------------------------------*/
+
+    public static TestPage getTestPage(WebDriver driver) {
+        driver.get( "http://www.dynacrongroup.com/webtest.html" );
+        return PageFactory.initElements(driver, TestPage.class);
+    }
 
     /**
      * This service is fairly straightforward.  The function provides a layer of abstraction between the
