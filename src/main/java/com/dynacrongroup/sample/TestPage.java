@@ -2,14 +2,13 @@ package com.dynacrongroup.sample;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 /**
  * This is an example of an incomplete page object modeling the Dynacron home page.  It only exercises
@@ -55,6 +54,7 @@ public class TestPage extends PageObject {
             exercise the page objects), but it's a good idea to at least make sure you're on the right
             page when initializing.
          */
+        new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1")));
         assertThat(getTitle(), equalToIgnoringWhiteSpace(TITLE));
     }
 
@@ -93,7 +93,7 @@ public class TestPage extends PageObject {
     public void closeAlert() {
         if (isAlertPresent()) {
             Alert alert = driver.switchTo().alert();
-            alert.dismiss();
+            alert.accept();
         }
     }
 

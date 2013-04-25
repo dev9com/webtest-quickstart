@@ -5,8 +5,5 @@ using different browser types and combinations.
 A more complete introduction is included in the javadocs, here:
 http://repository-dynacrongroup.forge.cloudbees.com/release/sites/webtest-quickstart/index.html
 
-If you'd prefer to use a maven archetype to create a webtest-quickstart project from scratch, check out
-http://github.com/dynacron-group/webtest-quickstart-archetype.
-
 For additional details regarding the parallel-webtest, the library that provides the WebDriverBase used by the tests:
 http://github.com/dynacron-group/parallel-webtest.

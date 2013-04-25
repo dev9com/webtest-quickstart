@@ -1,17 +1,24 @@
 package com.dynacrongroup.sample.remote;
 
 import com.dynacrongroup.sample.TestPage;
-import com.dynacrongroup.webtest.ParallelRunner;
 import com.dynacrongroup.webtest.WebDriverBase;
+import com.dynacrongroup.webtest.parameter.ParallelRunner;
+import com.dynacrongroup.webtest.parameter.ParameterCombination;
+import com.dynacrongroup.webtest.util.Configuration;
 import com.dynacrongroup.webtest.util.Path;
+import com.typesafe.config.Config;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
@@ -30,17 +37,25 @@ import static org.junit.Assume.assumeTrue;
 @RunWith(ParallelRunner.class)
 public class SeleniumPageObjectIT extends WebDriverBase {
 
-    Path p = new Path("www.dynacrongroup.com", 80);
+    @Rule
+    public TestName name = new TestName();
 
-    public SeleniumPageObjectIT(String browser, String browserVersion) {
-        super(browser, browserVersion);
-        p.setContext("");
+    /**
+     * Note that this is configured in src/test/resources/com/dynacrongroup/sample/remote/SeleniumPageObjectIT.conf
+     */
+    Config config = Configuration.getConfigForClass(SeleniumPageObjectIT.class);
+    Path p = new Path(config.getString("webtest.hostname"), 80);
+
+    public SeleniumPageObjectIT(ParameterCombination combination) {
+        super(combination);
+        p.setContext(config.getString("webtest.context"));
     }
 
     @Before
     public void preparePage() {
         // These tests require a level of javascript support not provided with htmlunit
-        assumeTrue(! this.getTargetWebBrowser().isHtmlUnit());
+        assumeTrue(! this.getWebDriverConfig().isHtmlUnit());
+
         driver.get(p._("/webtest.html"));
     }
 
@@ -70,6 +85,7 @@ public class SeleniumPageObjectIT extends WebDriverBase {
     public void proceduralButtonTextTest() {
         this.getLogger().info("Starting test: {}", name.getMethodName());
 
+        new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1")));
         WebElement button = driver.findElement(By.id("fancy"));
         try {
             button.click();

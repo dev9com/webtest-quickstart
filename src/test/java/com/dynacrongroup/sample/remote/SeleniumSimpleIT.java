@@ -1,7 +1,8 @@
 package com.dynacrongroup.sample.remote;
 
-import com.dynacrongroup.webtest.ParallelRunner;
 import com.dynacrongroup.webtest.WebDriverBase;
+import com.dynacrongroup.webtest.parameter.ParallelRunner;
+import com.dynacrongroup.webtest.parameter.ParameterCombination;
 import com.dynacrongroup.webtest.util.Path;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,21 +27,21 @@ public class SeleniumSimpleIT extends WebDriverBase {
 
     Path p = new Path( "www.google.com", 80 );
 
-    public SeleniumSimpleIT(String browser, String browserVersion) {
-        super( browser, browserVersion );
+    public SeleniumSimpleIT(ParameterCombination combination) {
+        super(combination);
         p.setContext("");
     }
 
     @Test
     public void firstTest() {
-        log.info( "the browser is: " + this.getTargetWebBrowser().getBrowser() );
+        log.info( "the browser is: " + this.getWebDriverConfig().getBrowser() );
         driver.get( p._( "/" ) );
         assertTrue( driver.getPageSource().contains( "Google" ) );
     }
 
     @Test
     public void secondTest() {
-        log.info( "this version is: " + this.getTargetWebBrowser().getVersion() );
+        log.info( "this version is: " + this.getWebDriverConfig().getVersion() );
 
         driver.get( p._( "/" ) );
         assertTrue( driver.getPageSource().contains( "Search" ) );

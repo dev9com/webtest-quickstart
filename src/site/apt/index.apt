@@ -6,6 +6,11 @@
  1/6/2012
  ------
 
+NOTE
+
+ Documentation here relates to the 1.X version of webtest-quickstart.  It is still
+ in the process of being updated for v2.X.
+
 Overview
 
  This project is a sample combined webapp/webtest project using the
