@@ -1,3 +1,5 @@
+**NOTE: This project has been deprecated. Use at your own risk!**
+
 The webtest-quickstart project is a sample project that can be used to quickly get started writing Selenium test cases
 in JUnit.  It includes samples for running tests locally and remotely, and sample maven profiles for driving tests
 using different browser types and combinations.
